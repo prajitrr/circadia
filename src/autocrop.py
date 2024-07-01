@@ -34,30 +34,6 @@ def autocrop(file_path, num_objects, tolerance=0):
     for i, file in enumerate(sorted_images):
         with zipped_dir.open(file) as image:
             frame = cv2.imdecode(np.frombuffer(image.read(), dtype=np.uint8),cv2.IMREAD_UNCHANGED)
-            #frame = cv2.fastNlMeansDenoisingColored(frame,None,100,100,7,21)
-
-
-            # blur
-            #frame = cv2.GaussianBlur(frame, (3,3), 0)
-
-            # # convert to hsv and get saturation channel
-            # sat = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)[:,:,1]
-
-            # # threshold saturation channel
-            # thresh = cv2.threshold(sat, 50, 255, cv2.THRESH_BINARY)[1]
-
-            # # apply morphology close and open to make mask
-            # kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9,9))
-            # morph = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel, iterations=1)
-            # mask = cv2.morphologyEx(morph, cv2.MORPH_OPEN, kernel, iterations=1)
-
-            # # do OTSU threshold to get circuit image
-            # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            # otsu = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
-
-            # # write black to otsu image where mask is black
-            # frame = otsu.copy()
-
 
             fg_mask = backSub.apply(frame)
             retval, mask_thresh = cv2.threshold( fg_mask, 180, 255, cv2.THRESH_BINARY)
@@ -65,7 +41,6 @@ def autocrop(file_path, num_objects, tolerance=0):
             mask_eroded = cv2.morphologyEx(mask_thresh, cv2.MORPH_OPEN, kernel)
 
             contours, hierarchy = cv2.findContours(mask_eroded, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            
             
             mask = np.zeros(frame.shape[:2],dtype=np.uint8)
             for cnt in contours:
