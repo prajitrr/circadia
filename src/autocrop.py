@@ -1,3 +1,10 @@
+import numpy as np
+import cv2
+
+#STL Imports
+import zipfile
+from functools import cmp_to_key
+
 def autocrop(file_path, num_objects, tolerance=0):
     #Currently outputs video with bounding rectangles for demonstrative purposes
   
