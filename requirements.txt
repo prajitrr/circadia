@@ -1,0 +1,3 @@
+# Temporary storage of requirements before conversion to pypi package
+numpy
+opencv-python
