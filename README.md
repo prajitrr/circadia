@@ -1,2 +1,2 @@
-# chloroclocker
-Fits a periodic function onto visual data of plant movement in order to provide a model of circadian rhythms in plants.
+# circadia
+Fits a periodic function onto generic imaging data in order to provide an estimator of circadian or other periodic rhythms.
