@@ -12,7 +12,7 @@ def autocrop(file_path, num_objects, tolerance=0):
     #@param file_path: Path to the zip file containing the images
     #@param num_objects Number of objects in frame
     #@param tolerance Integer value specifying tolerance in pixels around each object
-    #@return video: Video object containing the images
+    #@return List of tuples containing the bounding rectangles of the objects in the final frame
 
     #Read in the zip file and select up to 10 evenly spaced frames
     zipped_dir = zipfile.ZipFile(file_path)
@@ -80,4 +80,12 @@ def autocrop(file_path, num_objects, tolerance=0):
     
     video.release()
     cv2.destroyAllWindows()
-    return 0
+    return [cv2.boundingRect(cnt) for cnt in largest_final_contours]
+
+def compare(cnt1, cnt2):
+    #Helper function for comparing contours by area
+    #@param cnt1: First contour
+    #@param cnt2: Second contour
+    #@return Difference in area between the two contours
+    
+    return cv2.contourArea(cnt2) - cv2.contourArea(cnt1)
