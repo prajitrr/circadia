@@ -1,3 +1,9 @@
 # Temporary storage of requirements before conversion to pypi package
 numpy
 opencv-python
+
+#TRiP Requirements
+matplotlib
+pandas
+pillow
+scipy

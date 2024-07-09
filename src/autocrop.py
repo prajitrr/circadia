@@ -20,7 +20,9 @@ def autocrop(file_path, num_objects, tolerance=0):
 
     with zipped_dir.open(image_list[0].filename) as image:
         height, width= cv2.imdecode(np.frombuffer(image.read(), dtype=np.uint8),cv2.IMREAD_UNCHANGED).shape[:2]
-    video = cv2.VideoWriter("video_out2.mp4", cv2.VideoWriter_fourcc(*"mp4v"), 20.0, (width, height))
+    
+    # Uncomment to write video
+    # video = cv2.VideoWriter("video_out2.mp4", cv2.VideoWriter_fourcc(*"mp4v"), 20.0, (width, height))
     
     sorted_images = [index.filename for index in image_list]
     sorted_images.sort()
@@ -69,16 +71,19 @@ def autocrop(file_path, num_objects, tolerance=0):
     final_contours,hierarchy=cv2.findContours(final_mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     largest_final_contours = sorted(final_contours, key=cmp_to_key(compare))[:num_objects]
 
-    for file in sorted_images:
-        with zipped_dir.open(file) as image:
-            frame = cv2.imdecode(np.frombuffer(image.read(), dtype=np.uint8),cv2.IMREAD_UNCHANGED)
-            frame_out = frame.copy()
-            for cnt in largest_final_contours:
-                x, y, w, h = cv2.boundingRect(cnt)
-                frame_out = cv2.rectangle(frame_out, (x - tolerance, y - tolerance), (x+w+tolerance, y+h+tolerance), (0, 0, 200), 3)
-            video.write(frame_out)
+    # Uncomment to write video
+    # for file in sorted_images:
+    #     with zipped_dir.open(file) as image:
+    #         frame = cv2.imdecode(np.frombuffer(image.read(), dtype=np.uint8),cv2.IMREAD_UNCHANGED)
+    #         frame_out = frame.copy()
+    #         for cnt in largest_final_contours:
+    #             x, y, w, h = cv2.boundingRect(cnt)
+    #             frame_out = cv2.rectangle(frame_out, (x - tolerance, y - tolerance), (x+w+tolerance, y+h+tolerance), (0, 0, 200), 3)
+    #         video.write(frame_out)
     
-    video.release()
+    # Uncomment to write video
+    #video.release()
+    
     cv2.destroyAllWindows()
     return [cv2.boundingRect(cnt) for cnt in largest_final_contours]
 
