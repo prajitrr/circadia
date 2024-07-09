@@ -95,7 +95,7 @@ def crop_all(images_path, cropfile_path, img_extension, start_img, end_img):
             imj_col2 = imj_col1 + coords[2] # vertical right
             imj_row2 = imj_row1 + coords[3] # horizontal top
             # Veryfy path exists, otherwise create folder
-            cropped_path = '../../cropped/' + plant + '/'  # path
+            cropped_path = './cropped/' + plant + '/'  # path
             cropped_path = os.path.dirname(cropped_path) # convert to string
             if not os.path.exists(cropped_path):  # verify if exist
                 os.makedirs(cropped_path)
@@ -107,7 +107,7 @@ def crop_all(images_path, cropfile_path, img_extension, start_img, end_img):
             sub_image.save(cropped_path) # Save image
 
     # Print where images were saved
-    print("\nAll folders were saved in: ../../cropped/")
+    print("\nAll folders were saved in: ./cropped/")
 
 
 # Estimate derivatives
@@ -330,8 +330,8 @@ def estimateAll(img_extension='JPG'):
     print("ESTIMATING MOTION...\n")   
 
     # Specify the input and output directories
-    indirname = '../../cropped/'
-    outdirname = '../../output/motion/'
+    indirname = './cropped/'
+    outdirname = './output/motion/'
     # CReate them if don't exist
     Path(indirname).mkdir(parents=True, exist_ok=True)
     Path(outdirname).mkdir(parents=True, exist_ok=True)
@@ -352,7 +352,7 @@ def estimateAll(img_extension='JPG'):
         
         # Save vertical motion
         df = pd.DataFrame(motion_y, columns=['Motion'])
-        df.to_csv(f'../../output/motion/{plantID}.csv', 
+        df.to_csv(f'./output/motion/{plantID}.csv', 
                   index=False, header=False, na_rep='inf')
         # # Create motion figure
         # plt.figure(1)
@@ -363,7 +363,7 @@ def estimateAll(img_extension='JPG'):
         # plt.title(f'{plantID}')
         # plt.box(True);
         # # Save the figure
-        # plt.savefig(f'../output/motionX_{plantID}.png', bbox_inches='tight', facecolor='w');
+        # plt.savefig(f'./output/motionX_{plantID}.png', bbox_inches='tight', facecolor='w');
         # # Close the figure
         # plt.close()
 
@@ -413,11 +413,11 @@ def ModelFitALL():
     print("\n-----------------------------------")
     print("FITTING MODEL TO MOTION DATA...\n")
 
-    d = glob.glob(f"../../output/motion/*.csv")
+    d = glob.glob(f"./output/motion/*.csv")
     d = sorted(d)
 
     # Create output directory if it don't exist
-    Path('../../output/model/').mkdir(parents=True, exist_ok=True)
+    Path('./output/model/').mkdir(parents=True, exist_ok=True)
 
     Path_Array = []
     Period_Array = []
@@ -484,7 +484,7 @@ def ModelFitALL():
         plt.legend(['Data', 'Model'])
         plt.title('Frequency = {}'.format(round(model[0],2)))
         # Save the figure
-        plt.savefig(f'../../output/model/model_{plantID}.png', 
+        plt.savefig(f'./output/model/model_{plantID}.png', 
                     bbox_inches='tight', facecolor='w');
         # Close the figure
         plt.close()
@@ -546,6 +546,6 @@ def ModelFitALL():
          'RAE': rae_Array,   
         })
 
-    Models_data.to_csv('../../output/model/MODELS_DATA.csv',index=False)
+    Models_data.to_csv('./output/model/MODELS_DATA.csv',index=False)
   
     
