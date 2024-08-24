@@ -113,7 +113,9 @@ app.layout = html.Div(
 )
 def update_image(filenames):
     rectangles = autocrop("./userdata/" + session_id, 12, 0, 10)
-    start_image = cv2.imread(os.path.join(".", filenames[0]))
+    sorted_images = [file for file in os.listdir("./userdata/" + session_id) if os.path.isfile(os.path.join("./userdata/" + session_id, file))]
+    start_image = cv2.imread(os.path.join("./userdata", sorted_images[0]))
+    
     fig = px.imshow(start_image, aspect="auto")
     fig.layout.autosize = False
 
