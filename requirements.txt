@@ -3,7 +3,14 @@ numpy
 opencv-python
 
 #TRiP Requirements
-matplotlib
-pandas
-pillow
-scipy
+#matplotlib
+#pandas
+#pillow
+
+
+#Dash Requirements
+dash
+#dash-canvas
+#dash_extensions
+dash-uploader --pre
+packaging==21.3.0

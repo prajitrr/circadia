@@ -165,7 +165,12 @@ cython_debug/
 *.zip
 *.jpg
 crop.txt
+*.png
+test/
 Images/
+data/
+*.mp4
+
 
 #Temp TRiP Files
 .DS_Store
